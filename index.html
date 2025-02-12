@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi San Valentín?</title>
+    <style>
+        /* Estilos generales */
+        body {
+            background-color: #ffebee; /* Fondo rosado */
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            overflow: hidden; /* Evita el desplazamiento */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #e91e63; /* Color rosa fuerte */
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #880e4f; /* Color rosa oscuro */
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .button {
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .button.si {
+            background-color: #e91e63; /* Color rosa fuerte */
+            color: white;
+        }
+
+        .button.si:hover {
+            background-color: #c2185b; /* Color rosa oscuro al pasar el mouse */
+            transform: scale(1.1); /* Efecto de crecimiento */
+        }
+
+        .button.no {
+            background-color: #f48fb1; /* Color rosa claro para el "No" */
+            color: white;
+        }
+
+        .button.no:hover {
+            background-color: #e91e63; /* Color rosa fuerte al pasar el mouse */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Espacio entre los botones */
+            margin-top: 20px;
+        }
+
+        /* Animación de corazones */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            color: #e91e63;
+            font-size: 24px;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
+        }
+
+        /* Estilos responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 30px; /* Tamaño de fuente más pequeño para móviles */
+            }
+
+            p {
+                font-size: 16px; /* Tamaño de fuente más pequeño para móviles */
+            }
+
+            .button {
+                padding: 10px 20px; /* Botones más pequeños para móviles */
+                font-size: 16px;
+            }
+
+            .button-container {
+                flex-direction: column; /* Botones en columna para móviles */
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Hola, mi amor!</h1>
+        <p>Este San Valentín, quiero preguntarte algo muy importante...</p>
+        <p>¿Quieres ser mi San Valentín?</p>
+        <div class="button-container">
+            <button class="button si" onclick="window.location.href='ingreso.html'">¡Sí!</button>
+            <button class="button no" id="noButton" onmouseover="moverBoton()" onclick="respuesta('Sí')">No</button>
+        </div>
+    </div>
+
+    <!-- Animación de corazones -->
+    <div class="hearts">
+        <!-- Se generan corazones dinámicamente con JavaScript -->
+    </div>
+
+    <script>
+        // Función para mover el botón "No"
+        function moverBoton() {
+            const botonNo = document.getElementById('noButton');
+            const anchoVentana = window.innerWidth;
+            const altoVentana = window.innerHeight;
+
+            // Genera una posición aleatoria dentro de los límites de la ventana
+            const nuevaX = Math.random() * (anchoVentana - botonNo.offsetWidth);
+            const nuevaY = Math.random() * (altoVentana - botonNo.offsetHeight);
+
+            // Mueve el botón a la nueva posición
+            botonNo.style.position = 'fixed'; // Cambia a posición fija
+            botonNo.style.left = nuevaX + 'px';
+            botonNo.style.top = nuevaY + 'px';
+        }
+
+        // Generar corazones animados
+        const heartsContainer = document.querySelector('.hearts');
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
